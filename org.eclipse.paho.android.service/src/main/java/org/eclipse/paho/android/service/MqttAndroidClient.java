@@ -53,6 +53,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
@@ -411,7 +412,13 @@ public class MqttAndroidClient extends BroadcastReceiver implements
 		if (mqttService == null) { // First time - must bind to the service
 			Intent serviceStartIntent = new Intent();
 			serviceStartIntent.setClassName(myContext, SERVICE_NAME);
-			Object service = myContext.startService(serviceStartIntent);
+			Object service;
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				service=	myContext.startForegroundService(serviceStartIntent);
+			} else {
+				service=myContext.startService(serviceStartIntent);
+			}
+
 			if (service == null) {
 				IMqttActionListener listener = token.getActionCallback();
 				if (listener != null) {

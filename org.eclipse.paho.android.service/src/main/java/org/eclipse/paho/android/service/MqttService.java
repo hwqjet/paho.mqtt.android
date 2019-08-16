@@ -29,6 +29,9 @@ import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -41,6 +44,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 
 /**
@@ -615,6 +619,17 @@ public class MqttService extends Service implements MqttTraceHandler {
   @Override
   public void onCreate() {
     super.onCreate();
+      String channelId = "id";
+       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+          NotificationChannel channel =new NotificationChannel("id", "upgrade", NotificationManager.IMPORTANCE_HIGH);
+          ((NotificationManager) (getSystemService(NOTIFICATION_SERVICE))).createNotificationChannel(channel);
+           channelId =  channel.getId();
+      } else {
+           channelId = "id";
+      }
+//      Notification notification = new NotificationCompat.Builder(this, channelId).build();
+      Notification notification = new NotificationCompat.Builder(this).build();
+      startForeground(1000, notification);
 
     // create a binder that will let the Activity UI send
     // commands to the Service
@@ -644,9 +659,9 @@ public class MqttService extends Service implements MqttTraceHandler {
 
 		unregisterBroadcastReceivers();
 
-		if (this.messageStore !=null )
-			this.messageStore.close();
-
+		if (this.messageStore !=null ) {
+            this.messageStore.close();
+        }
 		super.onDestroy();
 	}
 

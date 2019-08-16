@@ -3,11 +3,10 @@ apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 24
+        minSdkVersion 19
+        targetSdkVersion 28
 
         testApplicationId "org.eclipse.paho.android.service.test"
     }
@@ -43,12 +42,15 @@ dependencies {
 
 android.libraryVariants.all { variant ->
     task("generate${variant.name}Javadoc", type: Javadoc) {
+        doFirst{
+            classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+        }
         title = "$name $version API"
         description "Generates Javadoc for $variant.name."
         source = variant.javaCompile.source
         ext.androidJar =
                 "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-        classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+
         options.links("http://docs.oracle.com/javase/7/docs/api/");
         options.links("http://d.android.com/reference/");
         exclude '**/BuildConfig.java'
@@ -118,15 +120,15 @@ publishing {
 }
 
 
-task debug << {
-    configurations.compile.each { println it}
-}
+//task debug << {
+//    configurations.compile.each { println it}
+//}
 // Required to bundle Java library Jar in AAR
 clean.doLast{
     copyLibs.execute()
 }
 assemble.doLast {
-    renameReleaseAAR.execute()
+//    renameReleaseAAR.execute()
 }
 
 clean.doFirst {

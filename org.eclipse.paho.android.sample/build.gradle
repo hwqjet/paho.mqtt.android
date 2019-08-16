@@ -2,12 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId rootProject.ext.sampleArchivesBaseName
-        minSdkVersion 16
-        targetSdkVersion 24
+        minSdkVersion 19
+        targetSdkVersion 28
         versionCode 1
         versionName "0.1"
     }
@@ -23,6 +22,12 @@ android {
     dexOptions {
         preDexLibraries = false
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 repositories {
@@ -32,7 +37,7 @@ repositories {
 
 
 dependencies {
-    //compile fileTree(dir: '../org.eclipse.paho.android/service/libs', excludes: ["org.eclipse.paho.client.mqttv3-${rootProject.ext.clientVersion}.jar"], include: '')
+    compile fileTree(dir: '../org.eclipse.paho.android/service/libs', excludes: ["org.eclipse.paho.client.mqttv3-${rootProject.ext.clientVersion}.jar"], include: '')
     compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}"
     compile "org.eclipse.paho:org.eclipse.paho.client.mqttv3:${rootProject.ext.clientVersion}"
@@ -48,7 +53,7 @@ task publishAPK(type: Copy) {
 }
 
 
-configurations.compile.exclude module: 'org.eclipse.paho.client.mqttv3'
-task debug << {
-    configurations.compile.each { println it}
-}
+//configurations.compile.exclude module: 'org.eclipse.paho.client.mqttv3'
+//debug.doLast {
+//    configurations.compile.each { println it}
+//}
