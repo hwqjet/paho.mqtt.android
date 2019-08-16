@@ -37,7 +37,7 @@ configurations {
 
 dependencies {
     compile "org.eclipse.paho:org.eclipse.paho.client.mqttv3:${rootProject.ext.clientVersion}"
-    compile "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
+    compile 'androidx.legacy:legacy-support-v4:1.0.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
 }
 

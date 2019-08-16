@@ -44,8 +44,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
  * <p>
@@ -627,8 +627,7 @@ public class MqttService extends Service implements MqttTraceHandler {
       } else {
            channelId = "id";
       }
-//      Notification notification = new NotificationCompat.Builder(this, channelId).build();
-      Notification notification = new NotificationCompat.Builder(this).build();
+      Notification notification = new NotificationCompat.Builder(this, channelId).build();
       startForeground(1000, notification);
 
     // create a binder that will let the Activity UI send
