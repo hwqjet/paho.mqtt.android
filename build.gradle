@@ -65,6 +65,7 @@ allprojects {
             url "file://$sdkDir/extras/android/m2repository/"
         }
         maven { url 'https://jitpack.io' }
+        maven { url 'http://172.20.4.179:9081/repository/kkdev/' }
     }
 
     version = rootProject.ext.serviceVersion

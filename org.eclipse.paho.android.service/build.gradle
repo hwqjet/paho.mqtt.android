@@ -29,6 +29,7 @@ android {
 
 repositories {
     maven { url rootProject.ext.mavenUrl }
+    maven { url 'https://jitpack.io' }
 }
 
 configurations {
@@ -37,7 +38,7 @@ configurations {
 
 dependencies {
 //    compile "org.eclipse.paho:org.eclipse.paho.client.mqttv3:${rootProject.ext.clientVersion}"
-    compile 'com.github.Ernest-su:paho.mqtt.java:1.1.0.3'
+    compile 'com.github.Ernest-su:org.eclipse.paho.client.mqttv3:1.1.0.4'
     compile 'androidx.legacy:legacy-support-v4:1.0.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
 }
