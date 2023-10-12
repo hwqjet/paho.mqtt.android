@@ -38,7 +38,7 @@ configurations {
 
 dependencies {
 //    compile "org.eclipse.paho:org.eclipse.paho.client.mqttv3:${rootProject.ext.clientVersion}"
-    compile 'com.github.hwqjet:org.eclipse.paho.client.mqttv3:1.0.0'
+    compile 'com.github.hwqjet.paho.mqtt.java:java-parent:1.0.0'
     compile 'androidx.legacy:legacy-support-v4:1.0.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
 }
